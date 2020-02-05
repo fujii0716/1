@@ -1,0 +1,83 @@
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Highchartsでグラフ作成</title>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+<body>
+    <div id="container" style="width: 680px; height: 550px; margin: 0 auto"></div>
+    <script language="JavaScript">
+        window.onload = function() {
+            Highcharts.chart('container', {
+                // グラフ属性設定
+                // 各属性の詳細：https://api.highcharts.com/highcharts/
+                title : {
+                    text: '資産の値動き',
+                    align: 'center'
+                    
+                },
+                xAxis : {
+                    categories: ['現在','1年後','2年後','3年後','4年後','5年後','6年後','7年後','8年後','9年後','10年後',]
+                },
+                yAxis : {
+                    labels: {
+            formatter: function () {
+                var label = this.axis.defaultLabelFormatter.call(this);
+                    if (this.value !== 250) {
+                    return Highcharts.numberFormat(this.value, 0);
+                }
+                return '(万円)<br>'+label;
+            }
+        },
+                    min:0, //y軸最小値
+　　　　　　　　          max:250, //y軸最大値
+　　　　　　　　　　　tickInterval: 50,
+
+                    title: {
+                        text: ''
+                    },
+                    
+                    plotLines: [{
+                        value: 0,
+                        width: 1,
+                        color: '#FF9655'
+                    }]
+                    
+                },
+                tooltip : {
+                    valueSuffix: '万円'
+                },
+                legend : {
+                    layout: 'vertical',
+                    align: 'center',
+                    verticalAlign: 'middle',
+                    borderWidth: 0,
+                
+                },
+                series : [
+                    {
+                        name: 'ポートフォリオC',
+                        data: [50,30,40,80,40,70,20,140,110,220,170]
+                   
+                    }
+                ],
+                
+                responsive: {
+                    rules: [{
+                        condition: {
+                            maxWidth: 600
+                        },
+                        chartOptions: {
+                            legend: {
+                                layout: 'horizontal',
+                                align: 'center',
+                                verticalAlign: 'bottom'
+                            }
+                        }
+                    }]
+                }
+            });
+        }
+    </script>
+</body>
+</html>
